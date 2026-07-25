@@ -1,0 +1,127 @@
+/* ==========================================================================
+   iFixTech — repair price estimator (estimator.js renders into this)
+
+   Independent stylesheet: it does not edit or override styles.css, it only
+   reads the custom properties styles.css defines on :root (--blue, --navy,
+   --radius, --shadow, etc.), so the estimator inherits the site's palette
+   and fonts automatically.
+
+   Classes are prefixed `ifxest-` rather than `est-`: styles.css already
+   has unused leftover rules named `.est` / `.est-form` / `.est-price` /
+   `.est-note` / `.est-result` from an earlier draft, and a plain `est-`
+   prefix would silently inherit them. `ifxest-` avoids that collision
+   without touching styles.css.
+
+   Mobile-first: option buttons and action buttons are full width by
+   default; the >=600px query switches them to an auto-width grid/row.
+   ========================================================================== */
+
+/* ---------- chrome: back / progress / start over ---------- */
+.ifxest-topbar{ display:flex; align-items:center; gap:14px; margin-bottom:14px; }
+.ifxest-back, .ifxest-reset{
+  background:none; border:0; padding:6px 2px; margin:0; cursor:pointer; flex:none;
+  font-family:var(--body); font-size:.85rem; font-weight:600; color:var(--blue);
+}
+.ifxest-back:hover, .ifxest-reset:hover{ text-decoration:underline; }
+.ifxest-reset{ margin-left:auto; }
+
+.ifxest-progress{ flex:1; height:4px; background:var(--tint-deep); border-radius:99px; overflow:hidden; }
+.ifxest-progress i{ display:block; height:100%; width:0; background:var(--blue); border-radius:99px; transition:width .25s ease; }
+
+.ifxest-trail{
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.05em; color:var(--muted);
+  text-transform:uppercase; margin:0 0 12px;
+}
+
+.ifxest-question{
+  margin:0 0 16px; font-family:var(--display); color:var(--navy);
+  font-size:1rem; font-weight:600; line-height:1.3;
+}
+.ifxest-question:focus{ outline:3px solid var(--cyan); outline-offset:4px; border-radius:4px; }
+
+/* ---------- options: mobile-first full-width stack ---------- */
+.ifxest-options{ display:flex; flex-direction:column; gap:10px; }
+
+.ifxest-opt{
+  display:flex; align-items:center; gap:12px; width:100%;
+  padding:14px 16px; border-radius:var(--radius-sm); border:2px solid var(--tint-deep);
+  background:#fff; cursor:pointer; text-align:left; font-family:var(--body); color:var(--ink);
+  transition:border-color .15s ease, transform .15s ease;
+}
+.ifxest-opt:hover{ border-color:var(--blue); transform:translateY(-1px); }
+.ifxest-opt-other{ border-style:dashed; color:var(--muted); }
+.ifxest-opt-icon{ font-size:1.3rem; line-height:1; flex:none; }
+.ifxest-opt-text{ display:flex; flex-direction:column; gap:2px; min-width:0; }
+.ifxest-opt-label{ font-weight:600; }
+.ifxest-opt-meta{ font-family:var(--mono); font-size:.78rem; color:var(--blue); }
+
+/* ---------- model dropdown (phones only — too many models for tiles) ---------- */
+.ifxest-select-wrap{ display:block; }
+.ifxest-select-label{
+  display:block; font-size:.8rem; color:var(--muted); font-family:var(--mono); letter-spacing:.04em;
+}
+.ifxest-select{
+  display:block; width:100%; margin-top:8px; padding:14px 16px; border-radius:var(--radius-sm);
+  border:2px solid var(--tint-deep); background:#fff; color:var(--ink);
+  font-family:var(--body); font-size:1rem; cursor:pointer;
+}
+.ifxest-select:hover{ border-color:var(--blue); }
+
+/* ---------- result panel ---------- */
+.ifxest-price{ font-family:var(--display); font-size:clamp(1.8rem,5vw,2.4rem); font-weight:700; color:var(--navy); }
+.ifxest-summary{ margin:6px 0 2px; }
+.ifxest-note{ color:var(--muted); font-size:.9rem; }
+.ifxest-cta{ display:flex; flex-direction:column; gap:12px; margin-top:16px; }
+
+/* ---------- tiered pricing (screen repairs with LCD/OLED/OEM options) ---------- */
+.ifxest-tiers{ display:grid; gap:10px; }
+.ifxest-tier{
+  display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%;
+  padding:12px 14px; border-radius:var(--radius-sm); background:var(--tint); border:1.5px solid transparent;
+  font-family:inherit; text-align:left; cursor:pointer; transition:border-color .15s ease, transform .15s ease;
+}
+.ifxest-tier:hover{ border-color:var(--blue); transform:translateY(-1px); }
+.ifxest-tier-reco{ background:#fff; border-color:var(--blue); }
+.ifxest-tier-label{ display:flex; flex-direction:column; gap:2px; font-size:.92rem; color:var(--ink); }
+.ifxest-tier-label b{ font-weight:600; }
+.ifxest-tier-tag{
+  font-family:var(--mono); font-size:.62rem; letter-spacing:.05em; text-transform:uppercase;
+  color:var(--blue); background:var(--tint-deep); padding:2px 8px; border-radius:99px; width:fit-content;
+}
+.ifxest-tier-sub{ font-size:.76rem; color:var(--muted); }
+.ifxest-tier-price{ font-family:var(--display); font-weight:700; font-size:1.3rem; color:var(--navy); flex:none; }
+.ifxest-tier-price.is-quote{ font-size:.85rem; font-family:var(--body); font-weight:600; color:var(--blue); }
+
+/* ---------- custom-quote form (the "Others" path) ---------- */
+.ifxest-form{ display:grid; gap:14px; margin-top:6px; }
+.ifxest-field{ display:block; font-size:.8rem; color:var(--muted); font-family:var(--mono); letter-spacing:.04em; }
+.ifxest-field input, .ifxest-field textarea{
+  display:block; width:100%; margin-top:6px; padding:12px 14px; border-radius:var(--radius-sm);
+  border:1px solid var(--tint-deep); background:var(--tint); color:var(--ink);
+  font-family:var(--body); font-size:.95rem;
+}
+.ifxest-field textarea{ resize:vertical; min-height:80px; }
+.ifxest-form-msg{ font-family:var(--mono); font-size:.85rem; color:var(--blue); margin:0; }
+.ifxest-form-row{ display:grid; gap:14px; }
+
+/* ---------- booking form (name/email/phone/date/time, right in the hero) ---------- */
+.ifxest-booking-summary{
+  background:var(--tint); border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:18px;
+}
+.ifxest-booking-summary p{ margin:0; }
+.ifxest-booking-price{ font-family:var(--display); font-weight:700; color:var(--navy); margin-top:2px !important; }
+
+/* ---------- action buttons: full width under 600px ---------- */
+.ifxest-cta .btn, .ifxest-form button[type="submit"]{ width:100%; justify-content:center; }
+
+@media (min-width:600px){
+  .ifxest-options{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:12px;
+  }
+  .ifxest-opt{ width:auto; }
+  .ifxest-cta{ flex-direction:row; flex-wrap:wrap; }
+  .ifxest-cta .btn{ width:auto; }
+  .ifxest-form{ max-width:440px; }
+  .ifxest-form button[type="submit"]{ width:auto; justify-self:start; }
+  .ifxest-form-row{ grid-template-columns:1fr 1fr; }
+}
