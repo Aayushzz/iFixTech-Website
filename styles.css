@@ -9,21 +9,26 @@
      4. Media queries              <- at the very bottom
  
    Colour rule: white dominates as background, blue carries branding and
-   every clickable element. The brightest cyan is reserved for primary CTAs
-   so people always know where to tap.
+   every clickable element. Colour is deliberately NOT spread evenly down
+   the page as alternating full-width bands (that's the page-builder
+   look) — most sections stay white/light, and dark navy is used exactly
+   once, at the footer, plus small concentrated accent panels (the
+   DisplayShield badge, the wizard result card) rather than whole
+   sections. --accent is a brighter sky blue reserved for highlights that
+   sit on those dark panels and for pops against white.
    ========================================================================== */
- 
+
 :root{
   /* ---- WHITE & BLUE PALETTE ---- */
   --white:      #ffffff;
   --tint:       #eef4ff;
-  --tint-deep:  #dce8ff;
-  --blue:       #2563eb;
-  --blue-dark:  #1d4ed8;
-  --cyan:       #38bdf8;
-  --navy:       #0b1e45;
+  --tint-deep:  #d9e6ff;
+  --blue:       #1d4ed8;
+  --blue-dark:  #1e3a8a;
+  --accent:       #38bdf8;
+  --navy:       #0b1220;
   --ink:        #0f172a;
-  --muted:      #5b6b86;
+  --muted:      #55617c;
  
   --radius: 16px;
   --radius-sm: 10px;
@@ -49,7 +54,7 @@ p{ margin:0 0 1em; }
 a{ color:var(--blue); text-decoration:none; }
 a:focus-visible, button:focus-visible, summary:focus-visible,
 input:focus-visible, select:focus-visible, textarea:focus-visible{
-  outline:3px solid var(--cyan); outline-offset:2px; border-radius:4px;
+  outline:3px solid var(--accent); outline-offset:2px; border-radius:4px;
 }
 img{ max-width:100%; display:block; }
 .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 22px; }
@@ -91,15 +96,18 @@ header{
 .nav-cta{ display:flex; gap:12px; align-items:center; }
 .nav-phone{ font-family:var(--mono); font-weight:600; color:var(--navy); font-size:.9rem; }
  
-/* ---------- hero ---------- */
-.hero{
-  position:relative; overflow:hidden;
-  background:
-    radial-gradient(1000px 400px at 85% -10%, rgba(56,189,248,.16), transparent 60%),
-    linear-gradient(180deg,#fff 0%,var(--tint) 100%);
-  padding:70px 0 60px;
+/* ---------- hero ----------
+   No soft blurred gradient glow here on purpose — that's the first thing
+   every AI page builder reaches for. Instead: a flat off-white section
+   with one solid, asymmetric blue shape parked behind the quote card,
+   more like a placed cutout than a glow. */
+.hero{ position:relative; overflow:hidden; background:var(--tint); padding:70px 0 0; }
+.hero::before{
+  content:""; position:absolute; top:-40px; right:-90px; width:560px; height:560px;
+  background:var(--blue); opacity:.07; z-index:0;
+  border-radius:38% 62% 58% 42% / 48% 38% 62% 52%;
 }
-.hero-grid{ display:grid; grid-template-columns:1.05fr .95fr; gap:48px; align-items:center; }
+.hero-grid{ position:relative; z-index:1; display:grid; grid-template-columns:1.05fr .95fr; gap:48px; align-items:center; }
 .hero h1{ font-size:clamp(2.2rem,5.4vw,3.5rem); letter-spacing:-.03em; }
 .hero h1 span{ color:var(--blue); }
 .hero p.lead{ font-size:1.12rem; color:var(--muted); max-width:38ch; }
@@ -160,7 +168,7 @@ header{
 .wiz-crumbs button:hover{ background:var(--tint-deep); }
  
 .wiz-bar{ height:4px; background:var(--tint); }
-.wiz-bar i{ display:block; height:100%; width:0; background:linear-gradient(90deg,var(--blue),var(--cyan)); transition:width .35s ease; }
+.wiz-bar i{ display:block; height:100%; width:0; background:linear-gradient(90deg,var(--blue),var(--accent)); transition:width .35s ease; }
  
 .wiz-body{ padding:30px 24px 34px; }
 .wiz-q{ text-align:center; margin:0 0 24px; font-size:1.3rem; }
@@ -203,22 +211,22 @@ header{
 .res-sum{ color:var(--muted); font-size:.98rem; margin-bottom:16px; }
 .res-sum b{ color:var(--navy); }
 .res-shield{
-  background:var(--tint); border-left:3px solid var(--cyan); border-radius:0 10px 10px 0;
+  background:var(--tint); border-left:3px solid var(--accent); border-radius:0 10px 10px 0;
   padding:14px 16px; margin-bottom:16px;
 }
 .res-shield strong{ display:block; color:var(--navy); font-family:var(--display); font-size:.95rem; margin-bottom:3px; }
 .res-shield span{ font-size:.86rem; color:var(--muted); }
 .res-fine{ font-size:.82rem; color:var(--muted); margin:0; }
 .res-right{
-  background:linear-gradient(160deg,var(--navy),#12306e); padding:34px;
+  background:linear-gradient(160deg,var(--navy),var(--blue-dark)); padding:34px;
   display:flex; flex-direction:column; justify-content:center; gap:12px;
 }
-.res-art{ display:grid; place-items:center; color:var(--cyan); margin-bottom:8px; }
+.res-art{ display:grid; place-items:center; color:var(--accent); margin-bottom:8px; }
 .res-art svg{ width:84px; height:84px; }
 .res-art img{ width:100%; max-width:180px; border-radius:12px; background:#fff; }
 .res-art img.fit-contain{ object-fit:contain; padding:12px; }
 .res-right .btn-ghost{ background:transparent; color:#fff; border-color:rgba(255,255,255,.3); }
-.res-right .btn-ghost:hover{ border-color:var(--cyan); color:var(--cyan); }
+.res-right .btn-ghost:hover{ border-color:var(--accent); color:var(--accent); }
 
 /* ---------- tiered pricing (screen repairs with LCD/OLED/OEM options) ---------- */
 .res-tiers{ display:grid; gap:10px; margin:6px 0 14px; }
@@ -226,12 +234,12 @@ header{
   display:flex; justify-content:space-between; align-items:center; gap:12px;
   padding:12px 14px; border-radius:12px; background:var(--tint); border:1.5px solid transparent;
 }
-.res-tier.is-reco{ background:#fff; border-color:var(--cyan); }
+.res-tier.is-reco{ background:#fff; border-color:var(--accent); }
 .res-tier-label{ font-size:.86rem; color:var(--ink); font-weight:600; }
 .res-tier-sub{ display:block; font-size:.76rem; font-weight:500; color:var(--muted); margin-top:2px; }
 .res-tier-tag{
   font-family:var(--mono); font-size:.62rem; letter-spacing:.05em; text-transform:uppercase;
-  color:#0e7490; background:rgba(6,182,212,.14); padding:2px 8px; border-radius:99px; margin-left:6px;
+  color:var(--blue-dark); background:var(--tint-deep); padding:2px 8px; border-radius:99px; margin-left:6px;
 }
 .res-tier-price{ font-family:var(--mono); font-weight:600; font-size:1.3rem; color:var(--navy); flex:none; }
 .res-tier-price.is-quote{ font-size:.85rem; font-weight:600; color:var(--blue); }
@@ -260,23 +268,30 @@ header{
   .wiz-grid{ grid-template-columns:repeat(2,1fr); }
 }
  
-/* ---------- trust bar ---------- */
-.trust{ background:var(--navy); color:#fff; padding:34px 0; }
-.trust .wrap{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; text-align:center; }
-.trust .num{ font-family:var(--mono); font-size:1.9rem; font-weight:600; color:#fff; }
-.trust .num small{ color:var(--cyan); }
-.trust .lbl{ font-size:.85rem; color:#b7c6e6; }
+/* ---------- trust strip (lives inside the hero, not its own dark band) ----------
+   Combined with .wrap on the same element in the markup, so this only sets
+   padding-top/bottom (never the padding shorthand) — .wrap already owns the
+   side padding and a shorthand here would silently clobber it. */
+.trust-strip{
+  position:relative; z-index:1; margin-top:56px; padding-top:26px; padding-bottom:44px;
+  border-top:1px solid var(--tint-deep);
+  display:grid; grid-template-columns:repeat(4,1fr); gap:20px; text-align:center;
+}
+.trust-strip .num{ font-family:var(--mono); font-size:1.7rem; font-weight:700; color:var(--blue); }
+.trust-strip .num small{ font-size:.95rem; font-weight:600; color:var(--muted); }
+.trust-strip .lbl{ font-size:.82rem; color:var(--muted); margin-top:2px; }
  
 /* ---------- cards ---------- */
 .grid-cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:34px; }
 .card{
-  background:#fff; border:1px solid var(--tint-deep); border-radius:var(--radius);
-  padding:24px; transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  background:#fff; border:1px solid var(--tint-deep); border-left:4px solid var(--blue);
+  border-radius:4px var(--radius) var(--radius) 4px;
+  padding:22px 24px; transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
-.card:hover{ transform:translateY(-4px); box-shadow:var(--shadow); border-color:var(--blue); }
+.card:hover{ transform:translateY(-4px) translateX(2px); box-shadow:var(--shadow); }
 .card .ic{
-  width:46px; height:46px; border-radius:12px; background:var(--tint);
-  display:grid; place-items:center; font-size:1.4rem; margin-bottom:14px;
+  width:40px; height:40px; border-radius:10px; background:var(--tint);
+  display:inline-flex; align-items:center; justify-content:center; font-size:1.25rem; margin-bottom:12px;
 }
 .card p{ color:var(--muted); font-size:.94rem; margin:0 0 10px; }
 .card .from{ font-family:var(--mono); font-size:.8rem; font-weight:600; color:var(--blue); }
@@ -299,47 +314,47 @@ header{
 .opt:hover{ border-color:var(--blue); }
 .opt[aria-pressed="true"]{ background:var(--blue); border-color:var(--blue); color:#fff; }
 .est-result{
-  background:linear-gradient(160deg,var(--navy),#12306e); color:#fff; padding:34px;
+  background:linear-gradient(160deg,var(--navy),var(--blue-dark)); color:#fff; padding:34px;
   display:flex; flex-direction:column; justify-content:center;
 }
-.est-result .cap{ font-family:var(--mono); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--cyan); }
+.est-result .cap{ font-family:var(--mono); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); }
 .est-price{ font-family:var(--mono); font-weight:600; font-size:2.6rem; line-height:1.1; margin:8px 0; }
-.est-note{ font-size:.86rem; color:#b7c6e6; min-height:3.4em; }
-.est-result .btn{ margin-top:20px; width:100%; background:var(--cyan); color:var(--navy); }
-.est-result .btn:hover{ background:#7dd3fc; }
+.est-note{ font-size:.86rem; color:#c3d9fc; min-height:3.4em; }
+.est-result .btn{ margin-top:20px; width:100%; background:var(--accent); color:var(--navy); }
+.est-result .btn:hover{ background:#60a9f7; }
  
 /* ---------- steps ---------- */
 .steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:34px; }
 .step .n{ font-family:var(--mono); font-size:.8rem; font-weight:600; color:var(--blue); }
 .step h3{ margin:8px 0 6px; }
 .step p{ color:var(--muted); font-size:.94rem; margin:0; }
-.step::before{ content:""; display:block; width:44px; height:3px; border-radius:3px; background:linear-gradient(90deg,var(--blue),var(--cyan)); margin-bottom:14px; }
+.step::before{ content:""; display:block; width:44px; height:3px; border-radius:3px; background:linear-gradient(90deg,var(--blue),var(--accent)); margin-bottom:14px; }
  
-/* ---------- displayshield ---------- */
-.shield{
-  background:
-    radial-gradient(700px 320px at 12% 0%, rgba(56,189,248,.22), transparent 62%),
-    linear-gradient(150deg,var(--navy),#12306e);
-  color:#fff;
-}
-.shield h2{ color:#fff; max-width:16ch; }
-.shield .eyebrow{ color:var(--cyan); }
+/* ---------- displayshield ----------
+   The rest of the site keeps this section light on purpose: the hero
+   already did the "dark gradient panel" move once, doing it again here
+   would be the exact repeated-block pattern this redesign is avoiding.
+   Instead the section stays white and the one dark element is the badge
+   itself, a single concentrated accent rather than a full-bleed wash. */
+.shield{ background:var(--white); border-top:1px solid var(--tint-deep); border-bottom:1px solid var(--tint-deep); }
+.shield h2{ color:var(--navy); max-width:16ch; }
+.shield .eyebrow{ color:var(--blue); }
 .shield-grid{ display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; }
-.shield p.sub{ color:#c3d3f0; font-size:1.05rem; max-width:42ch; }
+.shield p.sub{ color:var(--muted); font-size:1.05rem; max-width:42ch; }
 .shield-list{ list-style:none; padding:0; margin:22px 0 0; }
 .shield-list li{
   display:flex; gap:12px; align-items:flex-start; padding:11px 0;
-  border-top:1px solid rgba(255,255,255,.12); font-size:.96rem; color:#c3d3f0;
+  border-top:1px solid var(--tint-deep); font-size:.96rem; color:var(--ink);
 }
-.shield-list li b{ color:#fff; }
-.shield-list .tick{ color:var(--cyan); font-family:var(--mono); font-weight:600; }
+.shield-list li b{ color:var(--navy); }
+.shield-list .tick{ color:var(--blue); font-family:var(--mono); font-weight:600; }
 .badge{
-  background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.16);
-  border-radius:22px; padding:34px; text-align:center;
+  background:var(--navy); border:1px solid var(--navy); color:#fff;
+  border-radius:22px; padding:34px; text-align:center; box-shadow:var(--shadow-lg);
 }
 .ring-wrap{ position:relative; width:132px; height:132px; margin:0 auto 18px; }
 .ring{
-  width:132px; height:132px; border-radius:50%; background:var(--cyan);
+  width:132px; height:132px; border-radius:50%; background:var(--accent);
   -webkit-mask:radial-gradient(circle, transparent 56px, #000 57px);
   mask:radial-gradient(circle, transparent 56px, #000 57px);
 }
@@ -347,19 +362,19 @@ header{
   position:absolute; inset:0; display:grid; place-items:center; align-content:center;
   font-family:var(--mono); font-weight:600; font-size:2rem; color:#fff; line-height:1;
 }
-.ring-num small{ display:block; font-size:.7rem; letter-spacing:.16em; color:var(--cyan); margin-top:6px; }
+.ring-num small{ display:block; font-size:.7rem; letter-spacing:.16em; color:var(--accent); margin-top:6px; }
 .badge h3{ color:#fff; font-size:1.25rem; margin:0 0 6px; }
-.badge p{ color:#c3d3f0; font-size:.9rem; margin:0; }
+.badge p{ color:#c3d9fc; font-size:.9rem; margin:0; }
 .badge .incl{
   display:inline-block; margin-top:16px; font-family:var(--mono); font-size:.72rem;
-  letter-spacing:.14em; text-transform:uppercase; color:var(--navy); background:var(--cyan);
+  letter-spacing:.14em; text-transform:uppercase; color:var(--navy); background:var(--accent);
   padding:6px 14px; border-radius:99px; font-weight:600;
 }
  
 /* ---------- reviews ---------- */
 .reviews-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:34px; }
 .review{ background:#fff; border:1px solid var(--tint-deep); border-radius:var(--radius); padding:24px; }
-.stars{ color:#f5a623; letter-spacing:2px; font-size:.95rem; }
+.stars{ color:var(--blue); letter-spacing:2px; font-size:.95rem; }
 .review p{ font-size:.95rem; margin:12px 0; }
 .review .who{ font-weight:600; color:var(--navy); font-size:.9rem; }
  
@@ -387,29 +402,35 @@ header{
 .faq details[open] summary::after{ transform:rotate(45deg); }
 .faq .a{ padding:0 22px 20px; color:var(--muted); font-size:.95rem; }
  
-/* ---------- quote ---------- */
-.quote{ background:var(--navy); color:#fff; }
-.quote h2{ color:#fff; }
+/* ---------- quote ----------
+   Keeps the page's fourth "dark band" from ever existing: this stays a
+   light section, and the form itself carries the weight as a bordered,
+   shadowed panel instead. */
+.quote{ background:var(--tint); color:var(--ink); }
+.quote h2{ color:var(--navy); }
 .quote .wrap{ display:grid; grid-template-columns:1fr 1fr; gap:44px; align-items:start; }
-.quote p.sub{ color:#b7c6e6; }
-.qform{ display:grid; gap:14px; }
-.qform .row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-.qform label{ font-size:.78rem; color:#b7c6e6; display:block; margin-bottom:5px; font-family:var(--mono); letter-spacing:.06em; }
-.qform input, .qform select, .qform textarea{
-  width:100%; padding:12px 14px; border-radius:var(--radius-sm); border:1px solid #2c4478;
-  background:#0a1a3d; color:#fff; font-family:var(--body); font-size:.95rem;
+.quote p.sub{ color:var(--muted); }
+.qform{
+  display:grid; gap:14px; background:#fff; border:1px solid var(--tint-deep);
+  border-radius:var(--radius); padding:28px; box-shadow:var(--shadow);
 }
-.qform input::placeholder, .qform textarea::placeholder{ color:#7f92bd; }
-.qform .btn{ background:var(--cyan); color:var(--navy); }
-.qform .btn:hover{ background:#7dd3fc; }
+.qform .row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.qform label{ font-size:.78rem; color:var(--muted); display:block; margin-bottom:5px; font-family:var(--mono); letter-spacing:.06em; }
+.qform input, .qform select, .qform textarea{
+  width:100%; padding:12px 14px; border-radius:var(--radius-sm); border:1px solid var(--tint-deep);
+  background:var(--tint); color:var(--ink); font-family:var(--body); font-size:.95rem;
+}
+.qform input::placeholder, .qform textarea::placeholder{ color:#8a93ab; }
+.qform .btn{ background:var(--blue); color:#fff; }
+.qform .btn:hover{ background:var(--blue-dark); }
  
 /* ---------- footer ---------- */
-footer{ background:#07152f; color:#9fb2d6; padding:48px 0 30px; font-size:.9rem; }
+footer{ background:var(--navy); color:rgba(255,255,255,.68); padding:48px 0 30px; font-size:.9rem; }
 .foot-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:30px; margin-bottom:28px; }
 footer h4{ color:#fff; font-family:var(--display); margin:0 0 12px; font-size:1rem; }
-footer a{ color:#9fb2d6; display:block; padding:4px 0; }
-footer a:hover{ color:var(--cyan); }
-.foot-bottom{ border-top:1px solid #16294d; padding-top:20px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+footer a{ color:rgba(255,255,255,.68); display:block; padding:4px 0; }
+footer a:hover{ color:var(--accent); }
+.foot-bottom{ border-top:1px solid rgba(255,255,255,.14); padding-top:20px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
  
 /* ---------- mobile bar ---------- */
 .mobile-bar{
@@ -427,7 +448,7 @@ footer a:hover{ color:var(--cyan); }
   .hero .device{ order:-1; }
   .grid-cards,.reviews-grid,.steps{ grid-template-columns:1fr 1fr; }
   .est{ grid-template-columns:1fr; }
-  .trust .wrap{ grid-template-columns:1fr 1fr; gap:26px; }
+  .trust-strip{ grid-template-columns:1fr 1fr; gap:26px; }
   .visit,.quote .wrap,.foot-grid,.shield-grid{ grid-template-columns:1fr; }
   .shield .badge{ order:-1; }
   .nav-links,.nav-phone{ display:none; }
