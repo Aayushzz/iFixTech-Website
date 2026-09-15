@@ -772,7 +772,15 @@
 
     var dateRow = el("div", "ifxest-form-row");
     dateRow.appendChild(formField("Preferred date", "date", "date", "", true, ""));
-    dateRow.appendChild(formField("Preferred time", "time", "time", "", true, ""));
+
+    /* <input type="time"> defaults to step=60, i.e. a slot every minute.
+       300s puts the picker on 5-minute increments and makes anything
+       off-grid (10:03) fail validation. Divisible by 60, so the field
+       still doesn't show a seconds box. */
+    var timeField = formField("Preferred time", "time", "time", "", true, "");
+    timeField.querySelector("input").step = 300;
+    dateRow.appendChild(timeField);
+
     form.appendChild(dateRow);
 
     var submit = document.createElement("button");
