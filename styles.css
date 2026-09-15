@@ -100,6 +100,10 @@ header{
   padding:70px 0 60px;
 }
 .hero-grid{ display:grid; grid-template-columns:1.05fr .95fr; gap:48px; align-items:center; }
+/* Added by the ESTIMATOR SWITCH in index.html when the estimator card is
+   removed — the hero text then gets the whole row instead of half of it. */
+.hero-grid.solo{ grid-template-columns:1fr; max-width:none; }
+.hero-grid.solo p.lead{ max-width:52ch; }
 .hero h1{ font-size:clamp(2.2rem,5.4vw,3.5rem); letter-spacing:-.03em; }
 .hero h1 span{ color:var(--blue); }
 .hero p.lead{ font-size:1.12rem; color:var(--muted); max-width:38ch; }
@@ -197,6 +201,10 @@ header{
 .tile-word{ font-family:var(--display); font-weight:700; font-size:1.05rem; color:var(--navy); letter-spacing:-.01em; }
  
 .wiz-result{ display:grid; grid-template-columns:1.2fr .8fr; }
+/* display:grid above is an author rule, so it beats the browser's own
+   [hidden]{display:none} and the empty result panel would show at step 1.
+   This puts the hidden attribute back in charge. */
+.wiz-result[hidden]{ display:none; }
 .res-left{ padding:34px; }
 .res-cap{ font-family:var(--mono); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--blue); }
 .res-price{ font-family:var(--mono); font-weight:600; font-size:3rem; color:var(--navy); line-height:1.05; margin:6px 0 10px; }

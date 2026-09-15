@@ -439,8 +439,8 @@ function handleQuote(e){
   var msg = document.getElementById("formMsg");
   var fields = form.querySelectorAll("input, textarea, button[type=submit]");
   submitToFormspree(form, msg, {
-    subject: "New quote request from iFixTech website",
-    successText: "✓ Thanks, we'll reply with a firm price and the next available slot.",
+    subject: "New message from the iFixTech website",
+    successText: "✓ Thanks, your message is with us. We'll get back to you shortly.",
     onSuccess: function(){ for (var i = 0; i < fields.length; i++) fields[i].disabled = true; }
   });
   return false;

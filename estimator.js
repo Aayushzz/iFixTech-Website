@@ -58,7 +58,7 @@
     { label: "Charging port",      icon: "🔌", key: "chargingPort" },
     { label: "Rear camera",        icon: "📷", key: "rearCamera" },
     { label: "Water damage",       icon: "💧", key: "waterDamage" },
-    { label: "Board repair / data recovery", icon: "💾", key: "boardRepair" },
+    { label: "Board repair", icon: "💾", key: "boardRepair" },
     { label: "Something else",     icon: "❓", isOther: true }
   ];
 
@@ -67,7 +67,7 @@
     { label: "LCD / screen assembly", icon: "💥", key: "lcd" },
     { label: "Battery",            icon: "🔋", key: "battery" },
     { label: "Charging port",      icon: "🔌", key: "chargingPort" },
-    { label: "Board repair / data recovery", icon: "💾", key: "boardRepair" },
+    { label: "Board repair", icon: "💾", key: "boardRepair" },
     { label: "Something else",     icon: "❓", isOther: true }
   ];
 
@@ -77,7 +77,6 @@
     { label: "Keyboard",           icon: "⌨️", key: "keyboard" },
     { label: "Liquid damage",      icon: "💧", key: "liquidDamage" },
     { label: "Board repair",       icon: "🛠️", key: "boardRepair" },
-    { label: "Data recovery",      icon: "💾", key: "dataRecovery" },
     { label: "Something else",     icon: "❓", isOther: true }
   ];
 

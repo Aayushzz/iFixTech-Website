@@ -46,22 +46,21 @@ var ISSUE_SETS = {
     { n: "Charging port",              icon: "port",     key: "chargingPort" },
     { n: "Rear camera",                icon: "camera",   key: "rearCamera" },
     { n: "Water damage",               icon: "water",    key: "waterDamage" },
-    { n: "Board repair / data recovery", icon: "data",   key: "boardRepair" }
+    { n: "Board repair", icon: "data",   key: "boardRepair" }
   ],
   tablet: [
     { n: "Glass / digitizer",          icon: "glass",    key: "glass" },
     { n: "LCD / screen assembly",      icon: "screen",   key: "lcd" },
     { n: "Battery",                    icon: "battery",  key: "battery" },
     { n: "Charging port",              icon: "port",     key: "chargingPort" },
-    { n: "Board repair / data recovery", icon: "data",   key: "boardRepair" }
+    { n: "Board repair", icon: "data",   key: "boardRepair" }
   ],
   laptop: [
     { n: "Screen",                     icon: "screen",   key: "screen" },
     { n: "Battery",                    icon: "battery",  key: "battery" },
     { n: "Keyboard",                   icon: "keyboard", key: "keyboard" },
     { n: "Liquid damage",              icon: "water",    key: "liquidDamage" },
-    { n: "Board repair",               icon: "data",     key: "boardRepair" },
-    { n: "Data recovery",              icon: "data",     key: "dataRecovery" }
+    { n: "Board repair",               icon: "data",     key: "boardRepair" }
   ],
   console: [
     { n: "HDMI port",                  icon: "hdmi",     key: "hdmi" },
